@@ -1,0 +1,46 @@
+---
+title: "Animated Olympic Line Plot"
+author: "Yolanda Lewis"
+date: "11/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#load libraries
+library(ggplot2)
+library(gganimate) # for animation layer
+library(gifski) # for making the animation; restart R after installing
+library(gapminder) # for gapminder data about countries
+library(tidyselect)
+library(tidyr)
+library(dplyr)
+library(plotly)
+library(ggmap)
+library(stringr)
+library(maps)
+
+#Create data frame for athletes and Gender
+Athlete_GenderCount <- olympics %>% group_by(Year, Gender)%>%
+  summarize(Athletes = length(unique(Athlete)))
+```
+
+
+
+
+
+```{r}
+Olympics_Gender_TimePlot <- ggplot(Athlete_GenderCount, aes(x=Year, y=Athletes, color=Gender)) +
+  geom_point(aes(group = seq_along(Year))) +
+  geom_point(size=2)+
+  geom_line()  +
+  geom_text(x=1996, y=500, label= "IOC Mandates 
+            Women Competitors", color="red")+
+  geom_text(x=1994, y= 950, label= "Games Are 
+            Boycott Free", color = "Black")+
+  transition_reveal(Year)+
+  scale_color_manual(values=c("darkblue","red")) +
+  scale_x_continuous(breaks=c(1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008))+
+  labs(y= "Number of Athletes", title = "Total Number of Male and Female Olympians Over Time (1976-2008)") +
+  theme(plot.title = element_text(hjust = 0.5))
+Olympics_Gender_TimePlot
+```
