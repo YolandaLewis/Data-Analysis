@@ -1,4 +1,4 @@
-#Get central Tendency of data
+#Get central tendency of data
 summary(framingham1)
 
 which(is.na(framingham1))
@@ -12,7 +12,7 @@ summary(Framingham_NA_omitted)
 #where are missing values
 colSums(is.na(framingham1))
 
-#NOrmalize data using zscore
+#Normalize data using zscore
 summary(scaledFramingham)
 scaledFramingham<- scale(Framingham_Clean)
 
@@ -77,7 +77,7 @@ model2$residuals
 cor(framingham1, use= "complete.obs")
 cor(framingham1)
 
-#use a symbolic approch to find max correlation
+#use a symbolic approach to find max correlation
 symnum(cor(framingham1,use = "complete.obs"))
 
 #replace missing values with the median
